@@ -7,7 +7,15 @@ import portfolioRoutes from './routes/portfolioRoutes.js';
 import predictionRoutes from './routes/predictionRoutes.js';
 
 const app = express();
-app.use(cors());
+
+const cors = require('cors');
+app.use(cors({
+  origin: [
+    'http://localhost:3000', 
+    'https://tradexai.netlify.app/'
+  ],
+  credentials: true
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
