@@ -8,7 +8,18 @@ import predictionRoutes from './routes/predictionRoutes.js';
 
 const app = express();
 
-app.use(cors({ origin: '*' }));
+const allowedOrigins = ['https://effortless-dieffenbachia-514251.netlify.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
